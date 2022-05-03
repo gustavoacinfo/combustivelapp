@@ -1,0 +1,16 @@
+package br.com.conexinternet.combustivelapp.resources;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping(value="/regioes")
+public class RegiaoResource {
+	
+	@RequestMapping(method=RequestMethod.GET)
+	public String listar() {
+		return "REST está funcionando";
+	}
+
+}
