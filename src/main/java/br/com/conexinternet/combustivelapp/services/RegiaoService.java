@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.conexinternet.combustivelapp.domain.Regiao;
 import br.com.conexinternet.combustivelapp.repositories.RegiaoRepository;
+import br.com.conexinternet.combustivelapp.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class RegiaoService {
@@ -16,7 +17,8 @@ public class RegiaoService {
 	
 	public Regiao buscar(Integer id) {
 		Optional<Regiao> obj = repo.findById(id);
-		return obj.orElse(null); 
+		return obj.orElseThrow(() -> new ObjectNotFoundException(
+				 "Objeto não encontrado! Id: " + id + ", Tipo: " + Regiao.class.getName()));
 	}
 
 }
