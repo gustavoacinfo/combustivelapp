@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Quilometragem implements Serializable{
@@ -20,19 +22,30 @@ public class Quilometragem implements Serializable{
 	private LocalDate data;
 	private Double valorCalculado;
 	
+	@ManyToOne
+	@JoinColumn(name="regiao_id")
 	private Regiao regiao;
+	
+	@ManyToOne
+	@JoinColumn(name="tecnico_id")
+	private Tecnico tecnico;
 	
 	public Quilometragem() {
 		
 	}
 
-	public Quilometragem(Integer id, Integer quilometros, LocalDate data, Double valorCalculado) {
+	public Quilometragem(Integer id, Integer quilometros, LocalDate data, Double valorCalculado, Regiao regiao,
+			Tecnico tecnico) {
 		super();
 		this.id = id;
 		this.quilometros = quilometros;
 		this.data = data;
 		this.valorCalculado = valorCalculado;
+		this.regiao = regiao;
+		this.tecnico = tecnico;
 	}
+
+
 
 	public Integer getId() {
 		return id;
@@ -72,6 +85,14 @@ public class Quilometragem implements Serializable{
 
 	public void setRegiao(Regiao regiao) {
 		this.regiao = regiao;
+	}
+
+	public Tecnico getTecnico() {
+		return tecnico;
+	}
+
+	public void setTecnico(Tecnico tecnico) {
+		this.tecnico = tecnico;
 	}
 
 	@Override
