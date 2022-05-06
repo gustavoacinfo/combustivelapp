@@ -11,6 +11,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+
 @Entity 
 public class Tecnico implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -22,6 +25,7 @@ public class Tecnico implements Serializable{
 	private String usuario;
 	private String senha;
 	
+	@JsonManagedReference
 	@OneToMany(mappedBy="tecnico")
 	private List<Quilometragem> quilometragens = new ArrayList<>();
 	
