@@ -23,6 +23,8 @@ public class Quilometragem implements Serializable{
 	private Integer quilometros;
 	private LocalDate data;
 	private Double valorCalculado;
+	private boolean aprovado;
+	private boolean pago;
 	
 	@ManyToOne
 	@JoinColumn(name="regiao_id")
@@ -37,13 +39,17 @@ public class Quilometragem implements Serializable{
 		
 	}
 
-	public Quilometragem(Integer id, Integer quilometros, LocalDate data, Double valorCalculado, Regiao regiao,
-			Tecnico tecnico) {
+	
+
+	public Quilometragem(Integer id, Integer quilometros, LocalDate data, Double valorCalculado,
+			boolean aprovado, boolean pago, Regiao regiao, Tecnico tecnico) {
 		super();
 		this.id = id;
 		this.quilometros = quilometros;
 		this.data = data;
 		this.valorCalculado = valorCalculado;
+		this.aprovado = aprovado;
+		this.pago = pago;
 		this.regiao = regiao;
 		this.tecnico = tecnico;
 	}
@@ -96,6 +102,22 @@ public class Quilometragem implements Serializable{
 
 	public void setTecnico(Tecnico tecnico) {
 		this.tecnico = tecnico;
+	}
+	
+	public boolean isAprovado() {
+		return aprovado;
+	}
+
+	public void setAprovado(boolean aprovado) {
+		this.aprovado = aprovado;
+	}
+
+	public boolean isPago() {
+		return pago;
+	}
+
+	public void setPago(boolean pago) {
+		this.pago = pago;
 	}
 
 	@Override
