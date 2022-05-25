@@ -13,7 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class MesReferente implements Serializable{
@@ -25,11 +25,12 @@ public class MesReferente implements Serializable{
 	private String mesAno;
 	private Double valorFinal;
 	
-	@JsonBackReference
+	
 	@ManyToOne
 	@JoinColumn(name="tecnico_id")
 	private Tecnico tecnico;
 	
+	@JsonManagedReference
 	@OneToMany(mappedBy="mesReferente")
 	private List<Quilometragem> quilometragens = new ArrayList<>();
 	

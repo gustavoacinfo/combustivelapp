@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class Quilometragem implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -26,6 +28,7 @@ public class Quilometragem implements Serializable{
 	@JoinColumn(name="regiao_id")
 	private Regiao regiao;
 	
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name="mes_id")
 	private MesReferente mesReferente;
