@@ -7,9 +7,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import br.com.conexinternet.combustivelapp.domain.MesReferente;
 import br.com.conexinternet.combustivelapp.domain.Quilometragem;
 import br.com.conexinternet.combustivelapp.domain.Regiao;
 import br.com.conexinternet.combustivelapp.domain.Tecnico;
+import br.com.conexinternet.combustivelapp.repositories.MesReferenteRepository;
 import br.com.conexinternet.combustivelapp.repositories.QuilometragemRepository;
 import br.com.conexinternet.combustivelapp.repositories.RegiaoRepository;
 import br.com.conexinternet.combustivelapp.repositories.TecnicoRepository;
@@ -21,10 +23,13 @@ public class CombustivelappApplication implements CommandLineRunner {
 	private RegiaoRepository regiaoRepository;
 	
 	@Autowired
-	private QuilometragemRepository quilometragemRepository;
+	private TecnicoRepository tecnicoRepository;
 	
 	@Autowired
-	private TecnicoRepository tecnicoRepository;
+	private MesReferenteRepository mesReferenteRepository;
+	
+	@Autowired
+	private QuilometragemRepository quilometragemRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CombustivelappApplication.class, args);
@@ -42,20 +47,27 @@ public class CombustivelappApplication implements CommandLineRunner {
 		Tecnico tec2 = new Tecnico(null, "Rafael", "rafael@conex", "Net#1020");
 		Tecnico tec3 = new Tecnico(null, "Eduardo", "eduardo@conex", "Net#5555");
 		
-		Quilometragem qui1 = new Quilometragem(null, 30, LocalDate.of(2022, 05, 04), 30/5 * reg1.getPrecoPorCincoKm(), false, false, reg1, tec1);
-		Quilometragem qui2 = new Quilometragem(null, 40, LocalDate.of(2022, 05, 04), 40/5 * reg1.getPrecoPorCincoKm(), false, false, reg1, tec2);
-		Quilometragem qui3 = new Quilometragem(null, 50, LocalDate.of(2022, 05, 05), 50/5 * reg1.getPrecoPorCincoKm(), false, false, reg1, tec1);
-		Quilometragem qui4 = new Quilometragem(null, 35, LocalDate.of(2022, 05, 05), 35/5 * reg1.getPrecoPorCincoKm(), false, false, reg1, tec2);
-		Quilometragem qui5 = new Quilometragem(null, 40, LocalDate.of(2022, 05, 04), 40/5 * reg2.getPrecoPorCincoKm(), false, false, reg2, tec3);
-		Quilometragem qui6 = new Quilometragem(null, 45, LocalDate.of(2022, 05, 04), 45/5 * reg2.getPrecoPorCincoKm(), false, false, reg2, tec3);
+		tecnicoRepository.saveAll(Arrays.asList(tec1,tec2,tec3));
 		
-		tec1.getQuilometragens().addAll(Arrays.asList(qui1));
-		tec2.getQuilometragens().addAll(Arrays.asList(qui2));
-		tec1.getQuilometragens().addAll(Arrays.asList(qui3));
-		tec2.getQuilometragens().addAll(Arrays.asList(qui4));
+		MesReferente mes1 = new MesReferente(null, "MAIO/2022", 550.00, tec1);
+		MesReferente mes2 = new MesReferente(null, "MAIO/2022", 610.00, tec2);
+		MesReferente mes3 = new MesReferente(null, "MAIO/2022", 730.00, tec3);
 		
-		tecnicoRepository.saveAll(Arrays.asList(tec1, tec2, tec3));
+		mesReferenteRepository.saveAll(Arrays.asList(mes1,mes2,mes3));
+		
+		Quilometragem qui1 = new Quilometragem(null, 30, LocalDate.of(2022, 05, 04), 30/5 * reg1.getPrecoPorCincoKm(), reg1, mes1);
+		Quilometragem qui2 = new Quilometragem(null, 40, LocalDate.of(2022, 05, 04), 40/5 * reg1.getPrecoPorCincoKm(), reg1, mes2);
+		Quilometragem qui3 = new Quilometragem(null, 50, LocalDate.of(2022, 05, 05), 50/5 * reg1.getPrecoPorCincoKm(), reg1, mes1);
+		Quilometragem qui4 = new Quilometragem(null, 35, LocalDate.of(2022, 05, 05), 35/5 * reg1.getPrecoPorCincoKm(), reg1, mes2);
+		Quilometragem qui5 = new Quilometragem(null, 40, LocalDate.of(2022, 05, 04), 40/5 * reg2.getPrecoPorCincoKm(), reg2, mes3);
+		Quilometragem qui6 = new Quilometragem(null, 45, LocalDate.of(2022, 05, 04), 45/5 * reg2.getPrecoPorCincoKm(), reg2, mes3);
+		
+		mes1.getQuilometragens().addAll(Arrays.asList(qui1,qui3));
+		mes2.getQuilometragens().addAll(Arrays.asList(qui2,qui4));
+		mes3.getQuilometragens().addAll(Arrays.asList(qui5,qui6));
+		
 		quilometragemRepository.saveAll(Arrays.asList(qui1,qui2,qui3,qui4,qui5,qui6));
+		
 	}
 
 }

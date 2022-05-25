@@ -11,8 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 @Entity
 public class Quilometragem implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -23,38 +21,29 @@ public class Quilometragem implements Serializable{
 	private Integer quilometros;
 	private LocalDate data;
 	private Double valorCalculado;
-	private boolean aprovado;
-	private boolean pago;
 	
 	@ManyToOne
 	@JoinColumn(name="regiao_id")
 	private Regiao regiao;
 	
-	@JsonBackReference
 	@ManyToOne
-	@JoinColumn(name="tecnico_id")
-	private Tecnico tecnico;
+	@JoinColumn(name="mes_id")
+	private MesReferente mesReferente;
 	
 	public Quilometragem() {
 		
 	}
 
-	
-
-	public Quilometragem(Integer id, Integer quilometros, LocalDate data, Double valorCalculado,
-			boolean aprovado, boolean pago, Regiao regiao, Tecnico tecnico) {
+	public Quilometragem(Integer id, Integer quilometros, LocalDate data, Double valorCalculado, Regiao regiao,
+			MesReferente mesReferente) {
 		super();
 		this.id = id;
 		this.quilometros = quilometros;
 		this.data = data;
 		this.valorCalculado = valorCalculado;
-		this.aprovado = aprovado;
-		this.pago = pago;
 		this.regiao = regiao;
-		this.tecnico = tecnico;
+		this.mesReferente = mesReferente;
 	}
-
-
 
 	public Integer getId() {
 		return id;
@@ -95,30 +84,15 @@ public class Quilometragem implements Serializable{
 	public void setRegiao(Regiao regiao) {
 		this.regiao = regiao;
 	}
-
-	public Tecnico getTecnico() {
-		return tecnico;
+	
+	public MesReferente getMesReferente() {
+		return mesReferente;
 	}
 
-	public void setTecnico(Tecnico tecnico) {
-		this.tecnico = tecnico;
+	public void setMesReferente(MesReferente mesReferente) {
+		this.mesReferente = mesReferente;
 	}
 	
-	public boolean isAprovado() {
-		return aprovado;
-	}
-
-	public void setAprovado(boolean aprovado) {
-		this.aprovado = aprovado;
-	}
-
-	public boolean isPago() {
-		return pago;
-	}
-
-	public void setPago(boolean pago) {
-		this.pago = pago;
-	}
 
 	@Override
 	public int hashCode() {
@@ -136,7 +110,5 @@ public class Quilometragem implements Serializable{
 		Quilometragem other = (Quilometragem) obj;
 		return Objects.equals(id, other.id);
 	}
-	
-	
 
 }

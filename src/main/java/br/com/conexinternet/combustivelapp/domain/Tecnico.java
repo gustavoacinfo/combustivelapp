@@ -1,17 +1,12 @@
 package br.com.conexinternet.combustivelapp.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 @Entity 
@@ -24,10 +19,6 @@ public class Tecnico implements Serializable{
 	private String nome;
 	private String usuario;
 	private String senha;
-	
-	@JsonManagedReference
-	@OneToMany(mappedBy="tecnico")
-	private List<Quilometragem> quilometragens = new ArrayList<>();
 	
 	public Tecnico() {
 		
@@ -71,14 +62,6 @@ public class Tecnico implements Serializable{
 
 	public void setSenha(String senha) {
 		this.senha = senha;
-	}
-
-	public List<Quilometragem> getQuilometragens() {
-		return quilometragens;
-	}
-
-	public void setQuilometragens(List<Quilometragem> quilometragens) {
-		this.quilometragens = quilometragens;
 	}
 
 	@Override
