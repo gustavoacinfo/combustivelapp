@@ -7,20 +7,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.conexinternet.combustivelapp.domain.Tecnico;
-import br.com.conexinternet.combustivelapp.services.TecnicoService;
+import br.com.conexinternet.combustivelapp.domain.MesReferente;
+import br.com.conexinternet.combustivelapp.services.MesReferenteService;
 
 @RestController
-@RequestMapping(value="/tecnicos")
-public class TecnicoResource {
+@RequestMapping(value="/mesreferentes")
+public class MesReferenteResource {
 	
 	@Autowired
-	private TecnicoService service;
+	private MesReferenteService service;
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id) {
 		
-		Tecnico obj = service.buscar(id);
+		MesReferente obj = service.buscar(id);
 		
 		return ResponseEntity.ok().body(obj);
 	}
