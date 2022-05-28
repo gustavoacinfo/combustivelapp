@@ -1,4 +1,5 @@
 package br.com.conexinternet.combustivelapp;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Arrays;
 
@@ -8,10 +9,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import br.com.conexinternet.combustivelapp.domain.MesReferente;
+import br.com.conexinternet.combustivelapp.domain.Pagamento;
 import br.com.conexinternet.combustivelapp.domain.Quilometragem;
 import br.com.conexinternet.combustivelapp.domain.Regiao;
 import br.com.conexinternet.combustivelapp.domain.Tecnico;
+import br.com.conexinternet.combustivelapp.domain.enums.EstadoPagamento;
 import br.com.conexinternet.combustivelapp.repositories.MesReferenteRepository;
+import br.com.conexinternet.combustivelapp.repositories.PagamentoRepository;
 import br.com.conexinternet.combustivelapp.repositories.QuilometragemRepository;
 import br.com.conexinternet.combustivelapp.repositories.RegiaoRepository;
 import br.com.conexinternet.combustivelapp.repositories.TecnicoRepository;
@@ -30,6 +34,9 @@ public class CombustivelappApplication implements CommandLineRunner {
 	
 	@Autowired
 	private QuilometragemRepository quilometragemRepository;
+	
+	@Autowired
+	private PagamentoRepository pagamentoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CombustivelappApplication.class, args);
@@ -68,6 +75,22 @@ public class CombustivelappApplication implements CommandLineRunner {
 		
 		quilometragemRepository.saveAll(Arrays.asList(qui1,qui2,qui3,qui4,qui5,qui6));
 		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		
+		Pagamento pagto1 = new Pagamento(null, EstadoPagamento.QUITADO, sdf.parse("20/05/2022 17:00"), mes1);
+		mes1.setPagamento(pagto1);
+		
+		Pagamento pagto2 = new Pagamento(null, EstadoPagamento.QUITADO, sdf.parse("20/05/2022 17:00"), mes2);
+		mes2.setPagamento(pagto2);
+		
+		Pagamento pagto3 = new Pagamento(null, EstadoPagamento.QUITADO, sdf.parse("20/05/2022 17:00"), mes3);
+		mes3.setPagamento(pagto3);
+		
+		tec1.getMesReferentes().addAll(Arrays.asList(mes1));
+		
+		tec2.getMesReferentes().addAll(Arrays.asList(mes2));
+		
+		//pagamentoRepository.saveAll(Arrays.asList(pagto1,pagto2,pagto3));
 	}
 
 }

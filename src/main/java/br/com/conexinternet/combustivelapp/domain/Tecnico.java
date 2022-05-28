@@ -1,12 +1,15 @@
 package br.com.conexinternet.combustivelapp.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 
 @Entity 
@@ -19,6 +22,9 @@ public class Tecnico implements Serializable{
 	private String nome;
 	private String usuario;
 	private String senha;
+	
+	@OneToMany(mappedBy="tecnico")
+	private List<MesReferente> mesReferentes = new ArrayList<>();
 	
 	public Tecnico() {
 		
@@ -63,6 +69,14 @@ public class Tecnico implements Serializable{
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
+	
+	public List<MesReferente> getMesReferentes() {
+		return mesReferentes;
+	}
+
+	public void setMesReferentes(List<MesReferente> mesReferentes) {
+		this.mesReferentes = mesReferentes;
+	}
 
 	@Override
 	public int hashCode() {
@@ -80,7 +94,6 @@ public class Tecnico implements Serializable{
 		Tecnico other = (Tecnico) obj;
 		return Objects.equals(id, other.id);
 	}
-	
-	
+
 
 }

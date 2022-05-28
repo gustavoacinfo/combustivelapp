@@ -30,7 +30,7 @@ public class Quilometragem implements Serializable{
 	
 	@JsonBackReference
 	@ManyToOne
-	@JoinColumn(name="mes_id")
+	@JoinColumn(name="mes_referente_id")
 	private MesReferente mesReferente;
 	
 	public Quilometragem() {
@@ -96,7 +96,6 @@ public class Quilometragem implements Serializable{
 		this.mesReferente = mesReferente;
 	}
 	
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

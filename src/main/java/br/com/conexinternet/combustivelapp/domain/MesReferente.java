@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -25,7 +27,6 @@ public class MesReferente implements Serializable{
 	private String mesAno;
 	private Double valorFinal;
 	
-	
 	@ManyToOne
 	@JoinColumn(name="tecnico_id")
 	private Tecnico tecnico;
@@ -33,6 +34,9 @@ public class MesReferente implements Serializable{
 	@JsonManagedReference
 	@OneToMany(mappedBy="mesReferente")
 	private List<Quilometragem> quilometragens = new ArrayList<>();
+	
+	@OneToOne(cascade=CascadeType.ALL, mappedBy="mesReferente")
+	private Pagamento pagamento;
 	
 	public MesReferente() {
 		
@@ -86,6 +90,15 @@ public class MesReferente implements Serializable{
 		this.quilometragens = quilometragens;
 	}
 
+	public Pagamento getPagamento() {
+		return pagamento;
+	}
+
+	public void setPagamento(Pagamento pagamento) {
+		this.pagamento = pagamento;
+	}
+	
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -102,9 +115,5 @@ public class MesReferente implements Serializable{
 		MesReferente other = (MesReferente) obj;
 		return Objects.equals(id, other.id);
 	}
-	
-	
-	
-	
 
 }
