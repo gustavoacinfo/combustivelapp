@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -32,10 +33,11 @@ public class MesReferente implements Serializable{
 	private Tecnico tecnico;
 	
 	@JsonManagedReference
-	@OneToMany(mappedBy="mesReferente")
+	@OneToMany(mappedBy="mesReferente", cascade = CascadeType.ALL)
 	private List<Quilometragem> quilometragens = new ArrayList<>();
 	
-	@OneToOne(cascade=CascadeType.ALL, mappedBy="mesReferente")
+	@JsonManagedReference
+	@OneToOne(mappedBy="mesReferente")
 	private Pagamento pagamento;
 	
 	public MesReferente() {

@@ -10,8 +10,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Quilometragem implements Serializable{
@@ -24,7 +26,7 @@ public class Quilometragem implements Serializable{
 	private LocalDate data;
 	private Double valorCalculado;
 	
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name="regiao_id")
 	private Regiao regiao;
 	
@@ -95,6 +97,7 @@ public class Quilometragem implements Serializable{
 	public void setMesReferente(MesReferente mesReferente) {
 		this.mesReferente = mesReferente;
 	}
+	
 	
 	@Override
 	public int hashCode() {

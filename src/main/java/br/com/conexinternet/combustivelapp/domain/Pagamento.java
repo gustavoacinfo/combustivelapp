@@ -9,8 +9,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import br.com.conexinternet.combustivelapp.domain.enums.EstadoPagamento;
 
@@ -21,9 +22,11 @@ public class Pagamento implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
+	
 	private EstadoPagamento estado;
 	private Date dataPagamento;
 	
+	@JsonBackReference
 	@OneToOne
 	@JoinColumn(name="mes_referente_id")
 	private MesReferente mesReferente;
