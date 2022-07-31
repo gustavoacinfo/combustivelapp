@@ -23,7 +23,7 @@ public class Pagamento implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	
-	private EstadoPagamento estado;
+	private Integer estado;
 	private Date dataPagamento;
 	
 	@JsonBackReference
@@ -37,7 +37,7 @@ public class Pagamento implements Serializable{
 	public Pagamento(Integer id, EstadoPagamento estado, Date dataPagamento, MesReferente mesReferente) {
 		super();
 		this.id = id;
-		this.estado = estado;
+		this.estado = estado.getCod();
 		this.dataPagamento = dataPagamento;
 		this.mesReferente = mesReferente;
 	}
@@ -51,11 +51,11 @@ public class Pagamento implements Serializable{
 	}
 
 	public EstadoPagamento getEstado() {
-		return estado;
+		return EstadoPagamento.toEnum(estado);
 	}
 
 	public void setEstado(EstadoPagamento estado) {
-		this.estado = estado;
+		this.estado = estado.getCod();
 	}
 
 	public Date getDataPagamento() {

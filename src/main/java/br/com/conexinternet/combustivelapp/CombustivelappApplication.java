@@ -80,10 +80,10 @@ public class CombustivelappApplication implements CommandLineRunner {
 		Pagamento pagto1 = new Pagamento(null, EstadoPagamento.QUITADO, sdf.parse("20/05/2022 17:00"), mes1);
 		mes1.setPagamento(pagto1);
 		
-		Pagamento pagto2 = new Pagamento(null, EstadoPagamento.QUITADO, sdf.parse("20/05/2022 17:30"), mes2);
+		Pagamento pagto2 = new Pagamento(null, EstadoPagamento.PENDENTE, sdf.parse("20/05/2022 17:30"), mes2);
 		mes2.setPagamento(pagto2);
 		
-		Pagamento pagto3 = new Pagamento(null, EstadoPagamento.QUITADO, sdf.parse("20/05/2022 17:20"), mes3);
+		Pagamento pagto3 = new Pagamento(null, EstadoPagamento.CANCELADO, sdf.parse("20/05/2022 17:20"), mes3);
 		mes3.setPagamento(pagto3);
 		
 		tec1.getMesReferentes().addAll(Arrays.asList(mes1));
